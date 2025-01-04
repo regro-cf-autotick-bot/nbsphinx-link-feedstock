@@ -6,25 +6,27 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 8b5a3f5279ba9e9f81c01309ff5436dfcc14c23f188ec8a04658f871a3860420
 
 build:
-  number: 0
+  number: 1
   script: "{{ PYTHON }} -m pip install . -vv"
   noarch: python
 
 requirements:
   host:
-    - python >=3.0
+    - python {{ python_min }}
     - pip
     - setuptools
   run:
-    - python >=3.0
+    - python >={{ python_min }}
     - nbsphinx
     - sphinx >=1.8
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - nbsphinx_link
 
